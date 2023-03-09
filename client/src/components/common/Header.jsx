@@ -12,6 +12,7 @@ import { Link } from "react-router-dom"
 import { DELETE } from "../../controller/action"
 import { useEffect } from "react"
 
+
 export const Header = ({user,name}) => {
   // navbar
   const [mobile, setMobile] = useState(false)
@@ -66,9 +67,9 @@ export const Header = ({user,name}) => {
             <div className='toggle'>
               <button onClick={() => setMobile(!mobile)}>{mobile ? <AiOutlineClose className='close heIcon' /> : <AiOutlineMenu className='open heIcon' />}</button>
             </div>
-            <div className='left'>
+            <div className="left">
               <Link to='/'>
-                <img style={{width:75}} src={logo} alt='logo' />
+                <img  src={logo} alt='logo' />
               </Link>
             </div>
             <div className='center'>
@@ -79,14 +80,17 @@ export const Header = ({user,name}) => {
                   </li>
                 ))}
               </ul>
+              
             </div>
           </nav>
         
             <div className='right'>
-            <div className='right_search'>
+            
+                  <div className='right_search'>
               <input type='text' placeholder='Search Products...' />
               <BiSearch className='serachIcon heIcon' />
             </div>
+            
             <div className="right" style={{marginLeft:'20px'}}>
              {user === 'FARMER' ? (
               
@@ -101,20 +105,26 @@ export const Header = ({user,name}) => {
             
              
             
-            <div className='right_user' style={{'marginRight':'20px','marginLeft':'20px','fontSize':'13px'}}>
-              <Link to={'/profile'}>
-              <RiUser3Line className='userIcon heIcon' />
+             
+            <div className='right_card'>
+              <div style={{display:"flex",alignItems:"center"}}>
               
+            <div style={{'marginRight':'10px','marginLeft':'20px','fontSize':'13px',marginBottom:"16px"}}>
+              <Link to={'/profile'} style={{display:"flex",alignItems:"center"}}>
+              <RiUser3Line className='userIcon heIcon' />
+               <div style={{marginTop:'12px'}}>
                {name}
+               </div>
               </Link>
               {/* <AiOutlineHeart className='userIcon heIcon' /> */}
             </div>
-             
-            <div className='right_card'>
+            
               <button className='button' onClick={() => setCartList(!cartList)}>
                 <BsBagCheck className='shop heIcon' />
                 MY CART<span> ({getdata.length})</span>
               </button>
+            </div>
+
               <div className={cartList ? "showCart" : "hideCart"}>
                 {getdata.length ? (
                   <section className='details'>

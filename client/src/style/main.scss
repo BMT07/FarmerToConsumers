@@ -113,7 +113,7 @@ p {
       position: relative;
       .text {
         @include positions(absolute, 0, none, 0, none, 100%, 100%);
-        padding: $xl-3;
+        // padding: $xl-3;
         color: $white;
         h2 {
           margin: 5px 0;

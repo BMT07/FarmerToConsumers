@@ -35,7 +35,7 @@ export default function Login() {
    }
 
   return (
-    
+    <Container maxWidth="md">
     <Box display="flex"
     justifyContent="center"
     alignItems="center"
@@ -43,7 +43,7 @@ export default function Login() {
     >
     <Card sx={{ display: 'flex',height:600,width:770 ,justifyContent:"center",
     alignItems:"center",boxShadow:5}}>
-    <Box  sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box>
     <CardContent sx={{ flex: '1 0 auto' }}>
 
     <Box >
@@ -128,11 +128,14 @@ export default function Login() {
       </Box>
        <CardMedia
        component="img"
-       sx={{ width: 350, height:600,marginLeft:3 }}
+       sx={{ width: 350, height:600,marginLeft:3,
+        maxWidth: {xs:'100px', sm: '200px', md: '350px' },
+           }}
        image={require("../assets/images/login-img.jpg")}
        alt="Live from space album cover"
      />
    </Card>
   </Box>
+  </Container>
   );
 }

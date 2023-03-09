@@ -79,7 +79,7 @@ export default function Register() {
     alignItems="center"
     mt={3}
     >
-    <Card sx={{ display: 'flex',height:800,width:800 ,justifyContent:"center",
+    <Card sx={{ display: 'flex',height:950,width:800 ,justifyContent:"center",
     alignItems:"center",boxShadow:5}}>
     <Box  sx={{ display: 'flex', flexDirection: 'column' }}>
     <CardContent sx={{ flex: '1 0 auto' }}>
@@ -271,7 +271,7 @@ export default function Register() {
     </Box >
        <CardMedia
        component="img"
-       sx={{ width: 300, height:800,marginLeft:3 }}
+       sx={{ width: 300, height:950,marginLeft:3 ,maxWidth: {xs:'100px', sm: '200px', md: '350px' }}}
        image={require("../assets/images/register-img.jpg")}
        alt="Live from space album cover"
      />

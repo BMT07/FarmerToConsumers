@@ -56,11 +56,12 @@
       }
     }
   }
-
+  
   // card
   .cards {
-    @include grid(repeat(3, 1fr), 30px);
+    @include grid(repeat(2, 1fr), 30px);
   }
+  
   .topproduct,
   .product {
     .product_items {
@@ -102,3 +103,9 @@
     }
   }
 }
+.aa{
+  img {
+    @include width(100%, 100%, none, none, 20px, none);
+  } 
+}
+

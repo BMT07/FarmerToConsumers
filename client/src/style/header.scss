@@ -15,12 +15,17 @@ header {
     @include pa_ma($sm 0 0 0, none);
 
     img {
-      width: 100px;
+     max-width: 70px;
     }
+  }
+  @media only screen and (max-width: 600px) {
+    .left img {
+    display: none;    }
   }
   .heIcon {
     font-size: $lg;
     color: $blue;
+    margin-top: 10px;
   }
   .center {
     ul {
@@ -111,3 +116,7 @@ header.active {
     @include positions(absolute, 110%, none, none, 20px, 450px, auto);
   }
 }
+.not{
+  visibility: hidden;
+}
+

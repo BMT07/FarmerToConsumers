@@ -9,6 +9,7 @@
     "start:dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "bcryptjs": "^2.4.3",
     "concurrently": "^7.6.0",
     "cookie-parser": "~1.4.4",

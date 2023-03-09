@@ -4,12 +4,12 @@ import { banner } from "../../assets/data/data"
 export const Banner = () => {
   return (
     <>
-      <section className='banner'>
+      <section className='banner '>
         <div className='posts'>
           {banner.map((items) => (
             <div className='post' key={items.id}>
               <div className='content'>
-                <div className='img'>
+                <div className='aa img'>
                   <img src={items.cover} alt='' />
                 </div>
                 <div className='text'>
