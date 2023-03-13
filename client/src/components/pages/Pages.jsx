@@ -15,6 +15,7 @@ import ForceRedirect from "../../controller/ForceRedirect"
 import FarmerRouter from "../compte/FarmerRouter"
 import Farmer from "../compte/Farmer"
 import ProfilePage from "../compte/Compte"
+import ForgetPassword from "../compte/forgetPassword"
 
 
 
@@ -65,6 +66,9 @@ export const Pages = ({ cartItems }) => {
             <Profile/>
             </PrivateRouter>  
           </Route> 
+          <Route path="/forget">
+            <ForgetPassword/>            
+          </Route>
         </Switch>
         
         <Footer />

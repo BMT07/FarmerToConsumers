@@ -1,5 +1,5 @@
 var express = require('express');
-const { Register, Login, Profile, EditProfile } = require('../controllers/users.controllers');
+const { Register, Login, Profile, EditProfile, resetPassword, checkSecretCode, resetNewPassword } = require('../controllers/users.controllers');
 var router = express.Router();
 // npm install passport-jwt  
 const { ROLES, inRole } = require('../security/Rolemiddleware');
@@ -36,5 +36,10 @@ router.get('/admin',passport.authenticate('jwt', { session: false }), inRole(ROL
     res.status(404).send("not allowed")
   }
 })
-
+//reset password 
+router.post("/resetPassword", resetPassword);
+//check secret code
+router.post("/CheckSecretCode",checkSecretCode);
+//update password
+router.put("/resetNewPassword/:id",resetNewPassword);
 module.exports = router;

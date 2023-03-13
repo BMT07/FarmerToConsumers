@@ -43,12 +43,10 @@ function Compte() {
   const [user,setUser] =useState({}) 
   const [location, setLocation]=useState({})
   const auth=useSelector(state=>state.auth)
-  
     const getProfile=async()=>{
       const data= await axios.get('http://localhost:8080/FarmerToConsumer/profile/'+auth.user.email)
-      .catch((err)=>{if(err){
-        console.log("amani")
-        ////window.location.reload()
+      .catch((err)=>{if(err.status===401){
+        window.location.reload()
       } }
       )
       setUser(data.data) 
