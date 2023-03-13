@@ -25,6 +25,7 @@ export const LoginAction=(form, history)=>dispatch=>{
         localStorage.setItem('jwt',token)
         const decode=jwt_decode(token)
         dispatch(setUser(decode))})
+        
       .catch(err=>{
         dispatch({
             type: ERRORS,
@@ -32,6 +33,7 @@ export const LoginAction=(form, history)=>dispatch=>{
         })
      })
 }
+
 export const setUser=(decode)=>({
     type:SET_USER,
     payload:decode

@@ -27,7 +27,9 @@ export const Pages = ({ cartItems }) => {
     role: auth.user.role,
     name: auth.user.name
   }
+  
   return (
+    
     <>
 
       <Router>

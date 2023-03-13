@@ -46,15 +46,20 @@ function Compte() {
   
     const getProfile=async()=>{
       const data= await axios.get('http://localhost:8080/FarmerToConsumer/profile/'+auth.user.email)
+      .catch((err)=>{if(err){
+        console.log("amani")
+        ////window.location.reload()
+      } }
+      )
       setUser(data.data) 
       setLocation(data.data.location)
       //console.log(data.data.location) 
       console.log(location)
+      return data
     }
     useEffect(() => {
-        getProfile()       
-    }, [])
-    
+        getProfile()
+    }, [])  
   return (
     <div>
        <List

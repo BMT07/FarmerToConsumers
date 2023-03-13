@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { LoginAction } from '../../controller/authActions';
 import ReCAPTCHA from 'react-google-recaptcha'
+import { useEffect } from 'react';
 const theme = createTheme();
 
 export default function Login() {
@@ -41,6 +42,8 @@ export default function Login() {
         alert("Veuillez cocher la case 'Je ne suis pas un robot'");
       }
      }
+   
+    
 
   return (
     <Container maxWidth="md">
@@ -102,14 +105,15 @@ export default function Login() {
               onChange={onChangeHandler}
               helperText={errors.password}
             />           
-            <ReCAPTCHA
-                sitekey="6LfIKuokAAAAAMC2QIT5sl5ljrHbRquCG63N5Xnu"
-                onChange={handleVerification}
-               />
+            
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <ReCAPTCHA
+                sitekey="6LfIKuokAAAAAMC2QIT5sl5ljrHbRquCG63N5Xnu"
+                onChange={handleVerification}
+               />
             <Button className='button'
               type="submit"
               fullWidth

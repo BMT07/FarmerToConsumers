@@ -70,7 +70,7 @@ const Login=async (req,res)=>{
     }
 }
 const EditProfile = async (req ,res)=>{
-   // const { errors, isValid } = ValidateProfile(req.body)
+   //const { errors, isValid } = ValidateProfile(req.body)
     try {
         // if(!isValid){
         //     res.status(404).json(errors)

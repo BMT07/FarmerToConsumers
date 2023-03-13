@@ -43,6 +43,8 @@ function TabPanel(props) {
 
 function Profile() {
     const [value, setValue] = React.useState(0);
+    const auth=useSelector(state=>state.auth)
+
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -51,6 +53,7 @@ function Profile() {
     const logout=()=>{
         dispatch(Logout())
     }
+    
   return (
     <div>
         <Container>

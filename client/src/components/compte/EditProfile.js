@@ -2,11 +2,9 @@ import { Button, Grid, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
 function EditProfile() {
-    
     const [location, setLocation]=useState({})
     const [user,setUser] =useState({
         "id": "",
@@ -17,12 +15,13 @@ function EditProfile() {
         "description": "",
         "phoneNumber": "",
     }) 
+    const [formErrors, setFormErrors] = useState([]);
     const auth=useSelector(state=>state.auth)
     const getProfile=async()=>{
       const data= await axios.get('http://localhost:8080/FarmerToConsumer/profile/'+auth.user.email)
       setUser(data.data) 
       setLocation(data.data.location)
-      console.log(location)
+      //console.log(location)
     }
     const { name, email, city, streetAddress, postalCode, description, phoneNumber } = user
     const handleformInput = (e) => {
@@ -39,21 +38,65 @@ function EditProfile() {
         })
     }
     const editProfile=async()=>{
-        const data= await axios.put('http://localhost:8080/FarmerToConsumer/Editprofile/'+user.id, user)
-        console.log(data)
+        const data1= await axios.put('http://localhost:8080/FarmerToConsumer/Editprofile/'+user.id, user)
+        .then(res=>{alert("Profile updated")})
+        .catch(
+       (err)=>{
+        console.log(err.response.data)
+       } 
+        )
+        console.log(data1)
       }
-    const onSubmit = (e) => {
+      const validate = (values, loc) => {
+        const errors = {};
+        if (!values.name) {
+          errors.name = "username required";
+        }
+        if (!values.phoneNumber) {
+          errors.phoneNumber = "phoneNumber required";
+        }
+        if (!values.description) {
+          errors.description = "phoneNumber required";
+        }
+        if (!loc.city) {
+          errors.city = "city required";
+        }
+        if (!loc.streetAddress) {
+          errors.streetAddress = "streetAddress required";
+        }
+        if (!loc.postalCode) {
+          errors.postalCode = "postalCode required";
+        }
+        if (isNaN(loc.postalCode)) {
+          errors.postalCode = "Postal code must be a number";
+        }
+        if (isNaN(values.phoneNumber)) {
+          errors.phoneNumber = "Phone number must be a number";
+        }
+        if (Object.keys(errors).length !== 0) {
+          return { errors, isValid: false };
+        } else {
+          return { isValid: true };
+        }
+      };
+          
+      let erreur={"name":"","phoneNumber":""};
+      const onSubmit = (e) => {
         e.preventDefault();
-        editProfile();
-        console.log(user);
-
-    }
+        const validationResult = validate(user, location);
+        if (!validationResult.isValid) {
+          alert("Vérifier les champs ");
+        } else {
+          editProfile();
+        }       
+      }
     useEffect(() => {
-        getProfile()       
-    }, [])
+      getProfile()   
+  },[])
+
   return (
     <div>
-         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
+         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>         
          <Grid container spacing={2}>
             <Grid item xs={15} sm={6}>
         <TextField
@@ -66,6 +109,7 @@ function EditProfile() {
           onChange={(e) => handleformInput(e)}
         />
         </Grid>
+        <div>{erreur.name}</div>
         <Grid item xs={15} sm={6}>
         <TextField
           name="phoneNumber"
@@ -88,7 +132,8 @@ function EditProfile() {
           size="small"
           fullWidth
           disabled
-          onChange={(e) => handleformInput(e)}
+          onChange={(e) => handleformInput(e)} 
+          
         /> 
         </Grid>
         <Grid item xs={16} mt={2}>
@@ -100,7 +145,6 @@ function EditProfile() {
           variant="filled"
           size="small"
           onChange={(e) => handleLocation(e)}
-
         /> 
         </Grid>
         <Grid container spacing={2} mt={1}>
@@ -112,7 +156,7 @@ function EditProfile() {
             defaultValue=" "
             variant="filled"
             size="small"
-            onChange={(e) => handleLocation(e)}
+          onChange={(e) => handleLocation(e)}
             />
         </Grid>
         <Grid item xs={15} sm={6}>
