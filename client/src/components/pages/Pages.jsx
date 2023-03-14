@@ -7,20 +7,28 @@ import { Details } from "../home/details/Details"
 import Login from "../compte/Login"
 import Register from "../compte/Register"
 import PrivateRouter from "../compte/PrivateRouter"
-import { setUser } from "../../controller/authActions"
+import { Logout, setUser } from "../../controller/authActions"
 import Profile from "../compte/Profile"
 import { useSelector } from "react-redux"
 import ForceRedirect from "../../controller/ForceRedirect"
+import jwt_decode from 'jwt-decode'
 
 import FarmerRouter from "../compte/FarmerRouter"
 import Farmer from "../compte/Farmer"
-import ProfilePage from "../compte/Compte"
 import ForgetPassword from "../compte/forgetPassword"
+import { setAuth } from "../../util/setAuth"
+import store from "../../controller/store"
 
+if(window.localStorage.jwt){
+  const decode = jwt_decode(window.localStorage.jwt)
+  store.dispatch(setUser(decode))
+  setAuth(window.localStorage.jwt)
+  const currentDate = Date.now / 1000
 
-
-
-
+  if(decode.exp >  currentDate){
+   store.dispatch(Logout()) 
+  }
+}
 export const Pages = ({ cartItems }) => {
   const auth=useSelector(state=>state.auth)
   const user={

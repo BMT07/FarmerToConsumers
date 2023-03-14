@@ -45,8 +45,8 @@ function Compte() {
   const auth=useSelector(state=>state.auth)
     const getProfile=async()=>{
       const data= await axios.get('http://localhost:8080/FarmerToConsumer/profile/'+auth.user.email)
-      .catch((err)=>{if(err.status===401){
-        window.location.reload()
+      .catch((err)=>{if(err.response.status===401){
+        //window.location.reload()
       } }
       )
       setUser(data.data) 

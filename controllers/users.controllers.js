@@ -57,7 +57,7 @@ const Login=async (req,res)=>{
                                     name: user.name,
                                     email: user.email,
                                     role: user.role
-                                }, process.env.PRIVATE_KEY, { expiresIn: '1h' });
+                                }, process.env.PRIVATE_KEY, { expiresIn: '1min' });
                                 res.status(200).json({
                                     message: "success",
                                     token: "Bearer "+token
@@ -106,17 +106,15 @@ async function SendMail(user, code) {
       port: 465,
       secure: true,
       auth: {
-        user: "hadaamani8@gmail.com",
-        pass: "lxninhmyyfnlsafx",
+        //mail credentials
       },
       tls: {
         rejectUnauthorized: false,
       },
     });
-  
     // Message object
     let message = {
-      from: "farmertoconsumer@gmail.com",
+      from: "hadaamani8@gmail.com",
       to: user.email,
       // Subject of the message
       subject: "Récuprération du mot de passe",
@@ -127,8 +125,7 @@ async function SendMail(user, code) {
                <br>
                <p> Veuillez trouver ici le code de récupération de votre mot de passe : <span style="font-weight:500"> <strong>${code} </strong></span> </p>
                </div>`,
-    };
-  
+    };  
     await transporter.sendMail(message, (error, success) => {
       if (error) {
         console.log(error);
