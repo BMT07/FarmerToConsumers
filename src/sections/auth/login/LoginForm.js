@@ -15,8 +15,9 @@ export default function LoginForm() {
   const [isAdmin, setIsAdmin] = useState(null);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
-  
+  const [error, setError] = useState(null);
+
+
   const [data, setData] = useState({
     email,
     password
@@ -40,13 +41,15 @@ export default function LoginForm() {
     axios.post('/api/authenficate', data)
       .then((response) => navigate('/dashboard/user'))
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
-          console.log(error.response.data.errors);
+        if (error.response && error.response.status === 401) {
+          setError({ msg: "wrong credentials" });
+        } else if (error.response && error.response.status === 400) {
+          setError(error.response.data.errors);
         } else {
-          console.log(error.message);
+          setError("Something went wrong. Please try again later.");
         }
       });
-     
+
   };
 
   return (
@@ -72,11 +75,11 @@ export default function LoginForm() {
         />
       </Stack>
 
-      {isAdmin === false  && (
+      {isAdmin === false && (
         <Typography variant="body2" sx={{ color: 'error.main' }}>Vous n'êtes pas un admin</Typography>
       )}
 
-      {error &&  <Typography variant="body2" sx={{ color: 'error.main' }}>{error}</Typography>}
+      {error && <Typography variant="body2" sx={{ color: 'error.main' }}>{error.msg}</Typography>}
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
         Login

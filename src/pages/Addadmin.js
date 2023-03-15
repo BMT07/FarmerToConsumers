@@ -70,6 +70,7 @@ const Admin = (props) => {
                                 name="name"
                                 value={data.name}
                                 fullWidth
+                                required
                                 onChange={(e) => onValueChange(e)}
                             />
                         </Grid>
@@ -80,6 +81,7 @@ const Admin = (props) => {
                                 name="email"
                                 value={data.email}
                                 fullWidth
+                                required
                                 onChange={(e) => onValueChange(e)}
                             />
                         </Grid>
@@ -90,6 +92,7 @@ const Admin = (props) => {
                                 label="Phone Number"
                                 value={data.phoneNumber}
                                 fullWidth
+                                required
                                 onChange={(e) => onValueChange(e)}
                             />
                         </Grid>
@@ -100,6 +103,7 @@ const Admin = (props) => {
                                 name="role"
                                 value={data.role}
                                 fullWidth
+                                required
                                 onChange={(e) => onValueChange(e)}
 
                             />
@@ -111,6 +115,7 @@ const Admin = (props) => {
                                 label="Password"
                                 value={data.password}
                                 fullWidth
+                                required
                                 onChange={(e) => onValueChange(e)}
                             />
                         </Grid>
