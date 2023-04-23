@@ -72,3 +72,6 @@ const ProductModel = new Schema({
 const Product = mongoose.model('products', ProductModel);
 const users = mongoose.model('users', UserModel);
 module.exports = { users, Product };
+
+)
+module.exports = mongoose.model('users', UserModel)

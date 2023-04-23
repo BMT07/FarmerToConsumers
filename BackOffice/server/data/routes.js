@@ -236,3 +236,19 @@ router.delete('/products/:id', getProduct, async (req, res) => {
 });
 
 module.exports = router;
+
+    }
+})
+router.put('/users/update/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const data = req.body
+        const options = { new: true }
+        const result = await users.findByIdAndUpdate(id, data, options)
+        res.status(200).json({ result })
+    }
+    catch (err) {
+        console.log(err.message)
+    }
+})
+module.exports = router;
