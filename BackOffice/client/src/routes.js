@@ -11,6 +11,8 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import DetailUsers from './pages/DetailUsers';
 import Modification from './pages/Modification';
+import ModifProduct from './pages/ModifProduct';
+import ProductDetail from './pages/ProductDetail';
 import Admin from './pages/Addadmin';
 
 // ----------------------------------------------------------------------
@@ -31,6 +33,8 @@ export default function Router() {
         { path: 'modif/:id', element: <Modification /> },
         { path: 'detail/:id', element: <DetailUsers /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'modifProd/:id', element: <ModifProduct /> },
+        { path: 'prodDetail/:id', element: <ProductDetail /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'addadmin', element: <Admin /> },
       ],
