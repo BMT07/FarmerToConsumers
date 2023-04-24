@@ -171,8 +171,8 @@ async function SendMail(user, code) {
     port: 465,
     secure: true,
     auth: {
-       user: process.env.SENDER_MAIL,
-        pass: process.env.SENDER_PASS,
+       user: "hadaamani8@gmail.com",
+        pass: "lxninhmyyfnlsafx",
     },
     tls: {
       rejectUnauthorized: false,
@@ -180,7 +180,7 @@ async function SendMail(user, code) {
   });
   // Message object
   let message = {
-    from: process.env.SENDER_MAIL,
+    from: 'hadaamani8@gmail.com',
     to: user.email,
     // Subject of the message
     subject: 'Récuprération du mot de passe',
@@ -260,28 +260,11 @@ const resetNewPassword = async (req, res) => {
     const { newpass, confirmpass } = req.body;
     // Get user id from req.params
     const { id } = req.params;
-    // Find user by id
-    const user = await UserModel.findById(id);
-    // Check if old password and new password match
-    const isSamePassword = await bcrypt.compare(newpass, user.password);
-    console.log(isSamePassword)
-    if (isSamePassword) {
-      return res.status(401).json({ message: 'New password cannot be the same as old password' });
-    }
-    //get old password
-    //const user = await UserModel.findById({id})
-    //console.log(user)
-    //check if new password is the same as the old one
-    // if (newpass === user.password){
-    //   return res
-    //     .status(400)
-    //     .send({ msg: 'Please enter a different password' });
-    // }
     // Check if 2 password is equal
     if (newpass !== confirmpass) {
       return res
         .status(400)
-        .send({ msg: 'Passwords are not identical' });
+        .send({ msg: 'Les mots de passe ne sont pas identiques' });
     }
     // replace password
     const salt = await bcrypt.genSalt(10);
@@ -293,7 +276,7 @@ const resetNewPassword = async (req, res) => {
 
     res.status(200).send({ msg: 'Mot de passe changé !' });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(400).send({ msg: 'Changement du mot de passe echoué', error });
   }
 };

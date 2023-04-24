@@ -1,15 +1,10 @@
-import React, { useCallback, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import axios from 'axios';
-
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 // components
 import Iconify from '../components/iconify';
-import Chart from '../charts/Chart';
-import PieChartC from '../charts/PieChartC';
 // sections
 import {
   AppTasks,
@@ -27,24 +22,11 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios.get('/api/products/getAll').then((response) => {
-      setData(response.data);
-      console.log(response.data);
-    });
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 200);
-  }, []);
 
   return (
     <>
       <Helmet>
-        <title> Dashboard F2C </title>
+        <title> Dashboard | Minimal UI </title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -52,8 +34,6 @@ export default function DashboardAppPage() {
           Hi, Welcome back
         </Typography>
 
-        <Chart />
-        <PieChartC />
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
