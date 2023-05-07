@@ -1,0 +1,39 @@
+.crop-suggestion-container {
+  background-color: #8aec7d;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.crop-suggestion-title {
+  color: #0f110f;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.crop-suggestion-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.crop-suggestion-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.crop-suggestion-item {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #2ecc71;
+  color: #fff;
+  border-radius: 5px;
+  align-items: center;
+}

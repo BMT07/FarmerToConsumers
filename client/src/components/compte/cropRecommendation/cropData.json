@@ -1,0 +1,37 @@
+{
+  "wheat": {
+    "planting_season": "October-January",
+    "harvest_season": "May-June",
+    "average_yield": "2.5 tons/hectare"
+  },
+  "barley": {
+    "planting_season": "October-January",
+    "harvest_season": "May-June",
+    "average_yield": "1.5-2.5 tons/hectare"
+  },
+  "olives": {
+    "planting_season": "Year-round",
+    "harvest_season": "October-February",
+    "average_yield": "1-2 tons/hectare"
+  },
+  "dates": {
+    "planting_season": "Year-round",
+    "harvest_season": "October-November",
+    "average_yield": "3-7 tons/hectare"
+  },
+  "citrus": {
+    "planting_season": "Year-round",
+    "harvest_season": "October-May",
+    "average_yield": "15-20 tons/hectare"
+  },
+  "tomatoes": {
+    "planting_season": "September-December",
+    "harvest_season": "December-May",
+    "average_yield": "80-100 tons/hectare"
+  },
+  "potatoes": {
+    "planting_season": "January-April",
+    "harvest_season": "May-July",
+    "average_yield": "20-25 tons/hectare"
+  }
+}
