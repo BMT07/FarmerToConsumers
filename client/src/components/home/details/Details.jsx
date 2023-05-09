@@ -4,15 +4,22 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory, Link } from "react-router-dom"
 import { ADD, DELETE, REMOVE_INT } from "../../../controller/action"
+import { Rating, Button } from "@mui/material"
+import axios from "axios"
+import { Alert } from "@mui/material"
 
 export const Details = () => {
   const [data, setData] = useState([])
   const { id } = useParams()
-
-  //console.log(id)
+  const [count, setCount] = useState(0)
+  const [alert, setAlert] = useState('')
+  const [bool, setBool] = useState(false)
+  // console.log(id)
 
   const getdata = useSelector((state) => state.cartReducer.carts)
-  //console.log(getdata)
+  //
+
+  console.log(getdata)
 
   const compare = () => {
     let compareData = getdata.filter((e) => {
@@ -24,6 +31,25 @@ export const Details = () => {
   useEffect(() => {
     compare()
   }, [id])
+
+
+
+  const handleSubmit = () => {
+    axios.put('http://localhost:8080/api/rating', {
+      star: count,
+      productId: id
+    }, {
+      headers: { Authorization: `${localStorage.getItem('jwt')}` }
+    })
+    compare()
+    setBool(true)
+    setAlert('Your rating is registered');
+    setTimeout(() => {
+      setAlert('')
+      setBool(false)
+    }, 2000)
+
+  }
 
   // delete item
   const history = useHistory()
@@ -42,7 +68,6 @@ export const Details = () => {
   const decrement = (item) => {
     dispatch(REMOVE_INT(item))
   }
-
   return (
     <>
       <article>
@@ -55,15 +80,12 @@ export const Details = () => {
               </div>
               <div className='details_content_detail'>
                 <h1>{item.name}</h1>
-                <div className='rating'>
-                  <MdStarRate />
-                  <MdStarRate />
-                  <MdStarRate />
-                  <MdStarRate />
-                  <MdStarRate />
-                  <label htmlFor=''>(1 customer review)</label>
-                </div>
                 <h3> ${item.price * item.quantity}</h3>
+                <div className="d-flex">
+                  <Rating name="half-rating" defaultValue={item.totalrating} precision={0.5} onChange={(e) => setCount(e.target.value)} />
+                  <Button onClick={handleSubmit} style={{ backgroundColor: "#4CAF50", border: "none", color: "white", padding: "5px 10px", textAlign: "center", textDecoration: "none", display: "inline-block", fontSize: "16px", margin: "2px 4px", cursor: "pointer", borderRadius: "5px" }}> Rate</Button>
+                  {bool && <Alert>{alert}</Alert>}
+                </div>
                 <p>{item.farmer}</p>
                 <div className='qty'>
                   <div className='count'>
@@ -76,34 +98,20 @@ export const Details = () => {
                     </button>
                   </div>
                   <Link to={'/checkout'}>
-                  <button className='button'>Add To Cart</button>
+                    <button className='button'>Add To Cart</button>
                   </Link>
                 </div>
-                <div className='desc'>
-                  <h4>PRODUCTS DESCRIPTION</h4>
-                  <p>Designed by Puik in 1949 as one of the first models created especially for Carl Hansen & Son, and produced since 1950. The last of a series of chairs wegner designed based on inspiration from antique chinese armchairs.</p>
-                  <h4> PRODUCT DETAILS</h4>
-                  <ul>
-                    <li>
-                      <p> Material: Plastic, Wood</p>
-                    </li>
-                    <li>
-                      <p>Legs: Lacquered oak and black painted oak</p>
-                    </li>
-                    <li>
-                      <p>Dimensions and Weight: Height: 80 cm, Weight: 5.3 kg</p>
-                    </li>
-                    <li>
-                      <p>Length: 48cm</p>
-                    </li>
-                    <li>
-                      <p>Depth: 52 cm</p>
-                    </li>
-                    <li>
-                      <p>Seat Height: 44 cm</p>
-                    </li>
+                <div className="mt-4" style={{ marginTop: '1.5rem', padding: '1.5rem', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f8f8f8' }}>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem' }}>PRODUCT DETAILS</h4>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    <li style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>quantity:{item.quantity}</li>
+                    <li style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>ProductionDate:{item.productionDate}</li>
+                    <li style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Category:{item.category}</li>
+                    <li style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Organic?:{item.organic ? "Yes" : "No"}</li>
                   </ul>
                 </div>
+
+
               </div>
             </div>
           ))}

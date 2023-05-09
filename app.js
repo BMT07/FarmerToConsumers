@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
+
+const productRoute = require('./routes/productRoute')
 const chatRoute = require('./routes/chatRoute')
 const messageRoute = require('./routes/messageRoute')
 const mongoose = require('mongoose');
@@ -24,6 +26,11 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'data']
 }
 
+
+
+
+
+
 app.use(cors(corsOptions))
 
 app.use(passport.initialize())
@@ -32,7 +39,7 @@ mongoose.connect(process.env.URL_DB).then(() => console.log("CONNECTED")).catch(
 app.use('/FarmerToConsumer', indexRouter);
 app.use("/api/chat", chatRoute)
 app.use('/api/message', messageRoute)
-
+app.use('/api/rating', productRoute)
 
 
 var http = require('http');

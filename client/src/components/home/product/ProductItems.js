@@ -10,6 +10,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 
+
 export const ProductItems = ({ Like, cartItems, unLike }) => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -36,6 +37,7 @@ export const ProductItems = ({ Like, cartItems, unLike }) => {
     setOpenImage(true)
   }
 
+
   const createChat = async (userI, productI) => {
     console.log("voici user connected:", auth.user.id);
     console.log("voici userI:", userI);
@@ -52,6 +54,7 @@ export const ProductItems = ({ Like, cartItems, unLike }) => {
       //   history.push('/chat');
       //   return;
       // }
+      if (!auth.user.id) history.push('/login')
 
       if (userI != auth.user.id) {
         await axios.post(`http://localhost:8080/api/chat`, {

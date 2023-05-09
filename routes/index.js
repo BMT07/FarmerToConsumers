@@ -21,6 +21,17 @@ const passport = require('passport'); //npm i passport pour sécurité des route
 const User = require('../models/users.models');
 const { check, validationResult } = require('express-validator/check')
 const Product = require('../models/Product')
+
+
+
+
+
+
+
+
+
+
+
 /* Register */
 router.post('/register', Register);
 router.post('/activation',

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Suspense } from 'react';
 import { Header } from '../common/Header';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home } from '../home/Home';
@@ -78,100 +79,102 @@ export const Pages = ({ cartItems }) => {
 
   return (
     <>
-      <Router>
-        {/* <NavBar user={user.role} /> */}
-        <Header user={user.role} name={user.name} />
-        <Switch>
-          <Route path="/farmer">
-            <FarmerRouter user={user}>
-              <Farmer />
-            </FarmerRouter>
-          </Route>
-          <Route path="/addProduct">
-            <FarmerRouter user={user}>
-              <AddProduct />
-            </FarmerRouter>
-          </Route>
-          <Route path="/EditProduct/:id">
-            <FarmerRouter user={user}>
-              <EditProduct />
-            </FarmerRouter>
-          </Route>
-          <Route path="/ProductDetail/:id">
-            <FarmerRouter user={user}>
-              <ProductDetail />
-            </FarmerRouter>
-          </Route>
-          <Route path="/aboutus">
+      <Suspense fallback={null}>
+        <Router>
+          {/* <NavBar user={user.role} /> */}
+          <Header user={user.role} name={user.name} />
+          <Switch>
+            <Route path="/farmer">
+              <FarmerRouter user={user}>
+                <Farmer />
+              </FarmerRouter>
+            </Route>
+            <Route path="/addProduct">
+              <FarmerRouter user={user}>
+                <AddProduct />
+              </FarmerRouter>
+            </Route>
+            <Route path="/EditProduct/:id">
+              <FarmerRouter user={user}>
+                <EditProduct />
+              </FarmerRouter>
+            </Route>
+            <Route path="/ProductDetail/:id">
+              <FarmerRouter user={user}>
+                <ProductDetail />
+              </FarmerRouter>
+            </Route>
+            <Route path="/aboutus">
               <AboutUs />
-          </Route>
-          <Route path="/chat">
-            <PrivateRouter user={user}>
-              <Chat />
-            </PrivateRouter>
-          </Route>
+            </Route>
+            <Route path="/chat">
+              <PrivateRouter user={user}>
+                <Chat />
+              </PrivateRouter>
+            </Route>
 
-          <Route exact path="/">
-            <Home cartItems={cartItems} />
-          </Route>
-          <Route exact path="/ContactUs">
-            <ContactUs />
-          </Route>
-          <Route path={"/shop"} >
-            <Shop />
-          </Route>
+            <Route exact path="/">
+              <Home cartItems={cartItems} />
+            </Route>
+            <Route exact path="/ContactUs">
+              <ContactUs />
+            </Route>
+            <Route path={"/shop"} >
+              <Shop />
+            </Route>
 
-          <Route path="/cartEdit" exact component={Cart} />
-          <Route path="/cartEdit/checkout" >
-            <PrivateRouter user={user}>
-              <Checkout />
-            </PrivateRouter>
-          </Route>
-
-
-
-          <Route exact path="/cart/:id">
-            <Details />
-          </Route>
-          <Route path="/success">
-            <PrivateRouter user={user}>
-              <SuccessPayment />
-            </PrivateRouter>
-          </Route>
-          <Route path="/failed">
-            <PrivateRouter user={user}>
-              <FailedPayment />
-            </PrivateRouter>
-          </Route>
-          <Route path="/login">
-            <ForceRedirect user={user}>
-              <Login />
-            </ForceRedirect>
-          </Route>
-
-          <Route path="/register">
-            <ForceRedirect user={user}>
-              <Register />
-            </ForceRedirect>
-          </Route>
+            <Route path="/cartEdit" exact component={Cart} />
+            <Route path="/cartEdit/checkout" >
+              <PrivateRouter user={user}>
+                <Checkout />
+              </PrivateRouter>
+            </Route>
 
 
-          <Route path="/profile">
-            <PrivateRouter user={user}>
-              <Profile />
-            </PrivateRouter>
-          </Route>
-          <Route path="/forget">
-            <ForgetPassword />
-          </Route>
-          <Route path="/activationemail/:activation_token">
-            <ActivationEmail />
-          </Route>
 
-        </Switch>
+            <Route exact path="/cart/:id">
+              <Details />
+            </Route>
+            <Route path="/success">
+              <PrivateRouter user={user}>
+                <SuccessPayment />
+              </PrivateRouter>
+            </Route>
+            <Route path="/failed">
+              <PrivateRouter user={user}>
+                <FailedPayment />
+              </PrivateRouter>
+            </Route>
+            <Route path="/login">
+              <ForceRedirect user={user}>
+                <Login />
+              </ForceRedirect>
+            </Route>
 
-        <Footer />
-      </Router>
+            <Route path="/register">
+              <ForceRedirect user={user}>
+                <Register />
+              </ForceRedirect>
+            </Route>
+
+
+            <Route path="/profile">
+              <PrivateRouter user={user}>
+                <Profile />
+              </PrivateRouter>
+            </Route>
+            <Route path="/forget">
+              <ForgetPassword />
+            </Route>
+            <Route path="/activationemail/:activation_token">
+              <ActivationEmail />
+            </Route>
+
+          </Switch>
+
+          <Footer />
+        </Router>
+      </Suspense>
     </>
   );
 };

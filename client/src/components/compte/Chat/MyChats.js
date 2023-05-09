@@ -7,6 +7,7 @@ import { Stack, Skeleton, Input } from "@mui/material";
 import { getSender } from './Config/ChatLogic';
 import { Typography } from "@mui/material";
 import { setSelectedChat } from '../../../controller/action';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
@@ -47,11 +48,13 @@ const MyChats = ({ fetchAgain }) => {
                 display: { base: selectedChat ? "none" : "flex", md: "flex" },
                 flexDirection: "column",
                 alignItems: "center",
-                padding: 3,
-                backgroundColor: "white",
+                color: selectedChat ? "white" : "black",
+                paddingX: 3,
+                paddingY: 2,
                 width: { base: "100%", md: "31%" },
                 borderRadius: "lg",
-                borderWidth: "1px"
+                borderWidth: "1px",
+                backgroundColor: "#DCDCDC"
             }}
         >
             <Box
@@ -64,7 +67,9 @@ const MyChats = ({ fetchAgain }) => {
                     display: "flex",
                     width: "100%",
                     justifyContent: "space-between",
-                    alignItems: "center"
+                    alignItems: "center",
+                    backgroundColor: "#228B22",
+                    color: "white",
                 }}
             >
                 My Chats
@@ -93,10 +98,15 @@ const MyChats = ({ fetchAgain }) => {
                                     paddingX: 3,
                                     paddingY: 2,
                                     borderRadius: "lg",
+                                    borderColor: selectedChat === chat ? "#38B2AC" : "#E8E8E8",
+                                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                                    transition: "background-color 0.2s ease-in-out",
+
                                 }}
                                 key={chat._id}
                             >
                                 <Typography>
+                                    <AccountCircleIcon />
                                     {getSender(loggedUser, chat.users, chat.product)}
                                 </Typography>
                             </Box>
