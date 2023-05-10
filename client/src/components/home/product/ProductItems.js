@@ -47,12 +47,6 @@ export const ProductItems = ({ Like, cartItems, unLike }) => {
         }
       };
 
-      // const existingChat = await axios.get(`http://localhost:8080/api/chat?userId=${userI}&productId=${productI}`, config);
-      // if (existingChat.data) {
-      //   history.push('/chat');
-      //   return;
-      // }
-
       if (userI != auth.user.id) {
         await axios.post(`http://localhost:8080/api/chat`, {
           userId: userI,
@@ -113,10 +107,10 @@ export const ProductItems = ({ Like, cartItems, unLike }) => {
               </div>
             </div>
             <div className='details'>
-              <h3>{items.name}</h3>
+              <h4>{items.name}</h4>
               <p>{items.farmer}</p>
-              <h4>${items.price}</h4>
-              <h4>{items.likes.length}</h4>
+              <h6>{items.price}DT</h6>
+              <h6><FavoriteIcon />{items.likes.length} </h6>
             </div>
           </div>
         ))}

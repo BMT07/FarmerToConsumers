@@ -12,12 +12,14 @@ function Main(props) {
       item
       xs={12}
       md={8}
-      sx={{
+      sx={{ 
         '& .markdown': {
           py: 3,
         },
+        width: '100%',
       }}
     >
+            <div className="markdown" sx={{ maxWidth: 600, mx: 'auto' }}>
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
@@ -25,43 +27,34 @@ function Main(props) {
       
         <div className="markdown" >
         <section>
-    <ImageList sx={{ width: 600, height: 180 }} cols={5} rowHeight={164}>
+    <ImageList sx={{ width: '100%', height: 170 }} cols={5} rowHeight={164}>
     <ImageListItem>
       <img
-        src={require("../assets/images/bakary.jpg")}
-        srcSet={"../assets/images/bakary.jpg?w=164&h=164&fit=crop&auto=format&dpr=2 2x"}
-        //alt={item.title}
+        src={require("../assets/images/bakary.jpg")} 
         loading="lazy"
       />
     </ImageListItem>
     <ImageListItem>
       <img
         src={require("../assets/images/haikel.jpg")}
-        //srcSet={"../../assets/images/haikel.jpg?w=164&h=164&fit=crop&auto=format&dpr=2 2x"}        //alt={item.title}
         loading="lazy"
       />
     </ImageListItem>
     <ImageListItem>
       <img
         src={require("../assets/images/baherr.jpg")}
-        //srcSet={"../../assets/images/baherr.jpg?w=164&h=164&fit=crop&auto=format&dpr=2 2x"}       
-         //alt={item.title}
         loading="lazy"
       />
     </ImageListItem>
     <ImageListItem>
       <img
         src={require("../assets/images/amani.jpg")}
-        //srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-        //alt={item.title}
         loading="lazy"
       />
     </ImageListItem>
     <ImageListItem>
       <img
         src={require("../assets/images/souhaieb.jpg")}
-        //srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-        //alt={item.title}
         loading="lazy"
       />
     </ImageListItem>
@@ -99,7 +92,7 @@ function Main(props) {
 
         
 </div>
-
+</div>
     </Grid>
   );
 }

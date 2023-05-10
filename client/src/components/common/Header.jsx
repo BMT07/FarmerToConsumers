@@ -83,8 +83,9 @@ export const Header = ({user,name}) => {
                 src={logo}                
                 alt="Live from space album cover"
                 sx={{
-                  width: 100, height: 60,
-                   marginLeft: { xs:-11, sm: 0, md: 15 },
+                  width:{xs:0,md:100}, height: 60,
+                   marginLeft: { xs:-11, sm: 0, md: 5 },
+                   
                 }}
                  />
 
@@ -109,19 +110,6 @@ export const Header = ({user,name}) => {
               <input type='text' placeholder='Search Products...' />
               <BiSearch className='serachIcon heIcon' />
             </div>
-            {/* {user === 'FARMER' ? (
-          <Link to="/farmer" color="text.primary" > 
-                I'am a farmer
-              </Link>
-            
-            ) : (
-              ""
-              )} */}
-            
-            
-             
-            
-             
             <div className='right_card'>
               <div style={{display:"flex",alignItems:"center"}}>
               

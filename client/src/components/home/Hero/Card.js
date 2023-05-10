@@ -4,6 +4,8 @@ import { hero } from "../../assets/data/data"
 import { Product } from "../product/Product";
 //import { products } from "../../assets/data/data"
 import { Heading } from "../../common/Heading"
+import { Grid } from "@mui/material";
+
 
 
 export const Card = () => {
@@ -22,10 +24,6 @@ const mergedList = result.map((item, index) => {
   return { ...item, image: images[index] };
 });
 
-  useEffect(() => {
-console.log(result)
-  }, [])
-  
   return (
     <>
     <div className='head'>
@@ -33,16 +31,24 @@ console.log(result)
           </div>
       <section className='cards'>
         {mergedList.map((item,index) => (
-          <div className='card' key={index}>
-            <div className='left'>
-             
-                  <img src={item.image} alt='' />
+          <div  className='card' key={index}>
+            <Grid container spacing={0}>
+              <Grid item xs={6} md={4}>
               
-            </div>
-            <div className='right'>
-              <h4>{item.farmer}</h4>
+             
+             <img src={item.image} alt='' />
+         
+       
+              </Grid>
+              <Grid item xs={6} md={8}>
+              
+              <h5>{item.farmer}</h5>
               <p>{item.count} products</p>
-            </div>
+            
+              </Grid>
+            </Grid>
+           
+            
           </div>
         ))}
       </section>

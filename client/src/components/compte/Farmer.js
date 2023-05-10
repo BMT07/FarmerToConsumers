@@ -8,10 +8,15 @@ import { useHistory } from 'react-router-dom';
 import "../assets/csss/buttoons.css"
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+
+
 import {
   Container, Dialog, DialogTitle, MenuItem, Paper, TextField, Select, FormControl, InputLabel,
-  Input, CardActions
+  Input, CardActions, Breadcrumbs, ButtonGroup, CardActionArea, Backdrop
 } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +27,7 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { makeStyles, ThemeProvider } from '@mui/styles';
 import { createTheme } from '@mui/system';
 import { Box, Button, Alert, AlertTitle, Grid } from '@mui/material';
+import { HashLoader } from "react-spinners"
 
 const theme = createTheme({
   spacing: 8,
@@ -51,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'not-allowed',
   },
   paginationActive: {
+
   },
 }));
 
@@ -67,6 +74,8 @@ function Farmer() {
   const [expanded, setExpanded] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
+  const [cartAi, setCartAi] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [selectedProductId, setSelectedProductId] = useState(null);
 
@@ -121,7 +130,9 @@ function Farmer() {
   const { name, price, category, description, quantity, productionDate, organic, image } = data;
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
+      setLoading(true)
       if (isEditing) {
         await axios.put(`http://localhost:8080/FarmerToConsumer/update/${selectedProductId}`, data, {
           headers: { Authorization: `${localStorage.getItem('jwt')}` }
@@ -134,6 +145,7 @@ function Farmer() {
             headers: { Authorization: `${localStorage.getItem('jwt')}` }
           }).then((res) => {
             setDatas(res.data)
+            setLoading(false)
           }).catch(err => {
             console.log(err)
           })
@@ -146,10 +158,12 @@ function Farmer() {
         }).then((res) => {
           console.log(res.data)
           setOpen(false);
+          
           axios.get('http://localhost:8080/FarmerToConsumer/getProduct', {
             headers: { Authorization: `${localStorage.getItem('jwt')}` }
           }).then((res) => {
             setDatas(res.data)
+            setLoading(false)
           }).catch(err => {
             console.log(err)
           })
@@ -171,17 +185,21 @@ function Farmer() {
     }
   }, [selectedProductId]);
 
-
   const handleDelete = (id) => {
+    
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (confirmDelete) {
+      setLoading(true)
       try {
-        axios.delete(`http://localhost:8080/FarmerToConsumer/deleteProduct/${id}`).then(() => {
+        axios.delete(`http://localhost:8080/FarmerToConsumer/deleteProduct/${id}`,{
+          headers: { Authorization: `${localStorage.getItem('jwt')}` }
+        }).then(() => {
           setDatas(datas.filter(user => user._id !== id))
           setDeletedUserId(id);
           setTimeout(() => {
             setDeletedUserId(null);
           }, 3000);
+          setLoading(false)
         })
       } catch (err) {
         console.log(err.message)
@@ -229,7 +247,7 @@ function Farmer() {
   }, [])
 
 
-  const productsPerPage = 6;
+  const productsPerPage = 3;
   const pagesVisited = pageNumber * productsPerPage;
 
 
@@ -237,16 +255,16 @@ function Farmer() {
     .slice(pagesVisited, pagesVisited + productsPerPage)
     .map((product) => (
       <div className="col-lg-4 col-md-4 col-sm-12 mt-5" >
-        <div className="card" style={{marginLeft:"40px", boxShadow: "20px 20px 80px -44px", transition: ".5s ease-in-out", cursor: "pointer", height: "480px",width:"400px" }}>
+        <div className="card" style={{ marginLeft: "40px", boxShadow: "20px 20px 80px -44px", transition: ".5s ease-in-out", cursor: "pointer", height: "480px", width: "400px" }}>
           <img src={product.image} className="card-img-top" style={{ width: "100%", height: "200px", objectFit: "cover" }} />
           <div className="card-body">
             <h2 className="card-title">{product.name}</h2>
             <p className="card-text">Description: {product.description}</p>
             <p className="card-text">Price: ${product.price}</p>
-            <p className="card-text">Likes: {product.likes.length}</p>
+            <p className="card-text">Likes: {product.likes.length} <FavoriteIcon /></p>
             <p className="card-text">Organic: {product.organic ? "Yes" : "No"}</p>
-            <Button variant='outlined' color='success' endIcon={<EditIcon/>} onClick={() => handleEdit(product._id)} style={{marginRight:"20px"}}>Edit</Button>
-            <Button variant='outlined' color='error' endIcon={<DeleteIcon/>} onClick={() => handleDelete(product._id)}>Delete</Button>
+            <Button variant='outlined' color='success' endIcon={<EditIcon />} onClick={() => handleEdit(product._id)} style={{ marginRight: "20px" }}>Edit</Button>
+            <Button variant='outlined' color='error' endIcon={<DeleteIcon />} onClick={() => handleDelete(product._id)}>Delete</Button>
           </div>
         </div>
       </div>
@@ -281,6 +299,16 @@ function Farmer() {
 
   return (
     <>
+      <Box sx={{ backgroundColor: '#F7F7F7', height: 55, p: 2, border: '1px solid #E3E3E3', paddingLeft: 5 }}>
+        <div role="presentation" >
+          <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: 14 }} >
+            <Typography>
+              Account
+            </Typography>
+            <Typography color="text.primary">Farmer</Typography>
+          </Breadcrumbs>
+        </div>
+      </Box>
       {deletedUserId && (
         <Alert severity="success" onClose={() => setDeletedUserId(null)}>
           <AlertTitle>Produit supprimé</AlertTitle>
@@ -288,6 +316,15 @@ function Farmer() {
         </Alert>
       )}
       <Dialog open={open} onClose={handleClose}>
+      {loading &&(
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+
+      <HashLoader color="#9bc452" />
+      </Backdrop>
+      )}
         <DialogTitle id="form-dialog-title">
           {isEditing ? 'Edit Product' : 'Add Product'}
           <IconButton
@@ -406,25 +443,37 @@ function Farmer() {
                 </Grid>
               </Grid>
               <Grid display={'flex'} justifyContent={'end'}>
-              <Button type="submit" style={{ marginTop:"20px"}}>
-                {isEditing ? <EditIcon /> : <AddIcon />}
-                {isEditing ? 'Update' : 'Add'}
-              </Button>
-              <Button
+                <Button type="submit" style={{ marginTop: "20px" }}>
+                  {isEditing ? <EditIcon /> : <AddIcon />}
+                  {isEditing ? 'Update' : 'Add'}
+                </Button>
+                <Button
 
-style={{marginTop:"20px"}}
-                onClick={handleClose}
-              >
-                Back
-              </Button>
+                  style={{ marginTop: "20px" }}
+                  onClick={handleClose}
+                >
+                  Back
+                </Button>
               </Grid>
             </Paper>
           </form>
         </Container>
       </Dialog>
-      <Button variant="contained" style={{ "marginBottom": "10px", marginTop: "10px" }} color="primary" startIcon={<AddIcon />} sx={{ backgroundColor: 'teal', color: 'white', ml: { xs: 1, md: 3 } }} onClick={() => setOpen(true)}>
-        Add Product
-      </Button>
+
+      <Grid container sx={{ marginBottom: "10px", marginTop: "10px", justifyContent: 'flex-end', alignItems: 'center' }}>
+        <Grid item>
+          <ButtonGroup color='success' variant="text" aria-label="outlined primary button group">
+            <Button sx={{ fontWeight: 'bold' }} startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+              Add Product
+            </Button>
+            <Button sx={{ fontWeight: 'bold' }} startIcon={<CalendarMonthIcon />} onClick={() => history.push('/farmer/calendar')}>
+              Calendar
+            </Button>
+            <Button sx={{ fontWeight: 'bold' }} startIcon={<PsychologyIcon />} onClick={() => { setCartAi(true) }}>Ai Agricilture</Button>
+          </ButtonGroup>
+        </Grid>
+      </Grid>
+
 
       <div>
         <Grid container spacing={2}>
@@ -435,6 +484,7 @@ style={{marginTop:"20px"}}
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            marginTop: 10
           }}
         >
           <ReactPaginate className='react-paginate'
@@ -459,7 +509,59 @@ style={{marginTop:"20px"}}
           </div>
         </Box>
       </div>
+      {cartAi && (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <Grid container spacing={2} 
+            direction="row"
+            justifyContent="center"
+            alignItems="center" >
+            <Grid marginRight={3} >
+              <Card sx={{ maxWidth: 345 }} onClick={()=>{history.push('/farmer/crop')}}>
+                <CardActionArea >
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={require('../assets/images/cropCard.png')}
+                    alt="green iguana"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                     Crop Recommender
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Analyse data related to crops and their growing conditions with AI.
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+            <Grid >
+              <Card sx={{ maxWidth: 345 }} onClick={()=>{history.push('/farmer/fertilizer')}}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={require('../assets/images/fertilizerCard.png')}
+                    alt="green iguana"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                    Fertilizer Recommender
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Create a predictive model that recommends the best fertilizer type with AI.
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          </Grid>
 
+        </Backdrop>
+      )}
 
 
     </>

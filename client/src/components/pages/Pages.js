@@ -20,9 +20,6 @@ import { setAuth } from '../../util/setAuth';
 import store from '../../controller/store';
 import ActivationEmail from '../compte/ActivationEmail';
 import { fetchProducts } from '../../controller/ProductAction';
-import AddProduct from '../compte/AddProduct';
-import EditProduct from '../compte/EditProduct';
-import ProductDetail from '../compte/ProductDetail';
 import NavBar from '../common/NavBar';
 import Footer from '../common/Footer';
 import ContactUs from './ContactUs';
@@ -32,6 +29,13 @@ import SuccessPayment from '../Order/SuccessPayment';
 import FailedPayment from '../Order/FailedPayment';
 import Chat from '../compte/Chat/Chat';
 import AboutUs from '../Aboutus/Aboutus';
+import Chatbot from '../home/chatbot/Chatbot';
+import Calendar from '../Calendar/Calendar';
+import ChatBotIndex from '../home/chatbot/ChatBotIndex';
+import CropRecommender from '../AiRecommandation/CropRecommender';
+import FertilizerRecommender from '../AiRecommandation/FertilizerRecommender';
+import IndexFer from '../AiRecommandation/IndexFer';
+//import AboutUs from '../Test/AboutUs/index';
 
 
 const channel = new BroadcastChannel('auth');
@@ -81,27 +85,16 @@ export const Pages = ({ cartItems }) => {
       <Router>
         {/* <NavBar user={user.role} /> */}
         <Header user={user.role} name={user.name} />
+        <ChatBotIndex/>
         <Switch>
-          <Route path="/farmer">
+          <Route exact path="/farmer">
             <FarmerRouter user={user}>
               <Farmer />
             </FarmerRouter>
-          </Route>
-          <Route path="/addProduct">
-            <FarmerRouter user={user}>
-              <AddProduct />
-            </FarmerRouter>
-          </Route>
-          <Route path="/EditProduct/:id">
-            <FarmerRouter user={user}>
-              <EditProduct />
-            </FarmerRouter>
-          </Route>
-          <Route path="/ProductDetail/:id">
-            <FarmerRouter user={user}>
-              <ProductDetail />
-            </FarmerRouter>
-          </Route>
+          </Route>  
+          <Route path="/farmer/calendar" >
+            <Calendar />
+          </Route>    
           <Route path="/aboutus">
               <AboutUs />
           </Route>
@@ -110,7 +103,6 @@ export const Pages = ({ cartItems }) => {
               <Chat />
             </PrivateRouter>
           </Route>
-
           <Route exact path="/">
             <Home cartItems={cartItems} />
           </Route>
@@ -120,18 +112,17 @@ export const Pages = ({ cartItems }) => {
           <Route path={"/shop"} >
             <Shop />
           </Route>
-
           <Route path="/cartEdit" exact component={Cart} />
           <Route path="/cartEdit/checkout" >
             <PrivateRouter user={user}>
               <Checkout />
             </PrivateRouter>
           </Route>
-
-
-
           <Route exact path="/cart/:id">
             <Details />
+          </Route>
+          <Route path="/chatbot" >
+            <Chatbot />
           </Route>
           <Route path="/success">
             <PrivateRouter user={user}>
@@ -148,14 +139,11 @@ export const Pages = ({ cartItems }) => {
               <Login />
             </ForceRedirect>
           </Route>
-
           <Route path="/register">
             <ForceRedirect user={user}>
               <Register />
             </ForceRedirect>
           </Route>
-
-
           <Route path="/profile">
             <PrivateRouter user={user}>
               <Profile />
@@ -166,6 +154,12 @@ export const Pages = ({ cartItems }) => {
           </Route>
           <Route path="/activationemail/:activation_token">
             <ActivationEmail />
+          </Route>
+          <Route path="/farmer/crop">
+            <CropRecommender />
+          </Route>
+          <Route path="/farmer/fertilizer">
+            <IndexFer />
           </Route>
 
         </Switch>

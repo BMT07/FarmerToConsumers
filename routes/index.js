@@ -9,9 +9,11 @@ const {
   checkSecretCode,
   resetNewPassword,
   SendContactMail,
+  AddNewsletter,
+  SendNewsletter,
 } = require('../controllers/users.controllers');
 
-const { GetUserLivraison, PlaceOrder, Payment, Verify, updateOrder, GetOrder, cancelOrder } = require('../controllers/livraison.controller')
+const { GetUserLivraison, PlaceOrder, Payment, Verify, updateOrder, GetOrder, cancelOrder, GetFarmerOrder, GetLivraisonByReference } = require('../controllers/livraison.controller')
 const cloudinary = require('../controllers/utils/cloudinary')
 
 var router = express.Router();
@@ -143,8 +145,6 @@ router.post('/addProduct', [
 
       const user = await User.findById(req.user.id).select('-password');
       const { name, price, productionDate, quantity, description, category, organic, image } = req.body;
-
-
       const result = await cloudinary.uploader.upload(image, {
         folder: "products"
       })
@@ -156,6 +156,7 @@ router.post('/addProduct', [
           url: result.secure_url
         }
       });
+      SendNewsletter(product)
       res.json(product);
 
     } catch (err) {
@@ -336,10 +337,7 @@ router.put('/unlike', passport.authenticate('jwt', { session: false }), async (r
 })
 
 /////////////////Livraison////////////////////////////
-router.get(
-  '/donnes/:email', passport.authenticate('jwt', { session: false }),
-  GetUserLivraison
-);
+router.get('/donnes/:email', passport.authenticate('jwt', { session: false }), GetUserLivraison);
 router.post('/addOrder', passport.authenticate('jwt', { session: false }), PlaceOrder)
 router.post('/payment', Payment)
 router.post('/payment/:id', Verify)
@@ -348,5 +346,8 @@ router.put('/modifyOrder', passport.authenticate('jwt', { session: false }), upd
 router.get('/getOrder', passport.authenticate('jwt', { session: false }), GetOrder)
 router.delete('/cancelOrder/:id', passport.authenticate('jwt', { session: false }), cancelOrder)
 router.post('/contactus', SendContactMail)
+router.get('/orderByFarmer', passport.authenticate('jwt', { session: false }), GetFarmerOrder)
+router.get('/getorderbyref/:ref', passport.authenticate('jwt', { session: false }), GetLivraisonByReference)
+router.post('/AddNewsletter', AddNewsletter)
 
 module.exports = router;

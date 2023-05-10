@@ -6,6 +6,11 @@ import { fetchProducts } from "../../../controller/ProductAction"
 //import { topProducts } from "../../assets/data/data"
 import { Heading } from "../../common/Heading"
 import { ProductItems } from "../product/ProductItems"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export const TopProduct = () => {
   const products = useSelector(state => state.productReducer.Product);
@@ -52,17 +57,45 @@ export const TopProduct = () => {
     console.log("unlike" + id)
   }
   
+
+  const slideInLeft = (elem, delay, duration) => {
+    gsap.fromTo(
+      elem,
+      {
+        opacity: 0,
+        x: -200,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        delay: delay || 0.4,
+        duration: duration || 0.6,
+        scrollTrigger: {
+          trigger: elem,
+          start: "top center",
+          end: "bottom center"
+        }
+      }
+    )
+  }
+
+  
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [cartItems])
 
+  useEffect(()=>{
+    slideInLeft("#box1");
+  },[])
   return (
+    <section id="box1" >
     <Grid container spacing={1}>
       <Grid item xs>
         <p></p>
       </Grid>
       <Grid item md={8} xs={4}>
-        <div className='container'>
+        <div  className='container'>
           <div className='head'>
             <Heading title='Top Selling Products' desc='Meet our newbies! The latest templates uploaded to the marketplace.' />
           </div>
@@ -75,5 +108,6 @@ export const TopProduct = () => {
         <p></p>
       </Grid>
     </Grid>
+    </section>
   )
 }

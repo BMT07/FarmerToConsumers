@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material'
+import { Alert, AlertTitle, Button, Card, CardActions, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -10,20 +10,20 @@ import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 
 function MyOrders() {
 
-        const [open, setOpen] = React.useState(false);
-      
-        const handleClickOpen = () => {
-          setOpen(true);
-        };
-      
-        const handleClose = () => {
-          setOpen(false);
-        };
-        
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const [idOrder,setIdOrder]=useState('')
     const [order, setOrder] = useState([])
     const getOrder = async () => {
-        const orders = await axios.get("http://localhost:8080/FarmerToConsumer/getOrder",{
+        const orders = await axios.get("http://localhost:8080/FarmerToConsumer/getOrder", {
             headers: { Authorization: `${localStorage.getItem('jwt')}` }
         })
             .then((res) => setOrder(res.data))
@@ -45,7 +45,7 @@ function MyOrders() {
     return (
         <div>
 
-            {order.map((order, index) => (
+            {order.length !== 0 ? order.map((order, index) => (
                 <Card sx={{ minWidth: { xs: 300, md: 500 }, marginBottom: 2 }} key={index} >
                     <CardContent>
                         <Grid container spacing={2}>
@@ -58,7 +58,7 @@ function MyOrders() {
                                 </Typography>
 
 
-                                {order.productsNameQty.map((e,index) => (
+                                {order.productsNameQty.map((e, index) => (
                                     <Typography key={index} sx={{ mb: 0.5 }} color="text.secondary">
                                         - {e.name + " ×" + e.quantity} Kg
                                     </Typography>))
@@ -94,7 +94,7 @@ function MyOrders() {
                                 }
                             </Grid>
                             <Grid item xs={12} md={4}>
-                                <Button sx={{ mt: 5 }} size='small' color='error' onClick={handleClickOpen}>Cancel order</Button>
+                                <Button sx={{ mt: 5 }} size='small' color='error' onClick={()=>{handleClickOpen();setIdOrder(order._id)}}>Cancel order</Button>
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -114,13 +114,30 @@ function MyOrders() {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Disagree</Button>
-                            <Button onClick={()=>{handleClose();cancelOrder(order._id)}} autoFocus>
+                            <Button onClick={() => { handleClose(); cancelOrder(idOrder) }} autoFocus>
                                 Agree
                             </Button>
                         </DialogActions>
                     </Dialog>
                 </Card>
-            ))}
+            )) : (
+                <Grid container spacing={2} display={'flex'} alignItems={'center'} >
+
+                    
+                    <Grid item xs={12} md={6}>
+                        <img style={{ width: '300px' }} src={require('../assets/images/Empty-pana.png')} alt=' ' />
+
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Alert severity="error">
+                            <AlertTitle>Info</AlertTitle>
+                            Orders Not found — <strong>check it out!</strong>
+                        </Alert>                   
+                         </Grid>
+                </Grid>
+
+            )}
+
         </div>
     )
 }

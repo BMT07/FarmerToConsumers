@@ -8,6 +8,8 @@ const chatRoute = require('./routes/chatRoute')
 const messageRoute = require('./routes/messageRoute')
 const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
+const productRoute = require('./routes/productRoute')
+
 const passport = require('passport')
 var app = express();
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -32,6 +34,8 @@ mongoose.connect(process.env.URL_DB).then(() => console.log("CONNECTED")).catch(
 app.use('/FarmerToConsumer', indexRouter);
 app.use("/api/chat", chatRoute)
 app.use('/api/message', messageRoute)
+app.use('/api/rating', productRoute)
+
 
 
 

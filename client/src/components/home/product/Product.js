@@ -1,4 +1,4 @@
-import { Button, FormControl, FormHelperText, MenuItem, Select, Stack } from "@mui/material";
+import { Backdrop, Button, FormControl, FormHelperText, MenuItem, Select, Stack } from "@mui/material";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, LikeProducts, unLikeProducts } from "../../../controller/ProductAction";
@@ -10,8 +10,11 @@ import axios from "axios"
 import { Grid } from '@mui/material';
 import Category from "../../shop/Category";
 import ReactPaginate from 'react-paginate';
+import { HashLoader } from "react-spinners"
+
 
 export const Product = () => {
+  const[loading,setLoading]=useState(true)
   const products = useSelector(state => state.productReducer.Product);
   const [cartItems, setCartItems] = useState([])
   const dispatch = useDispatch();
@@ -37,7 +40,14 @@ export const Product = () => {
 
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts())
+    .then(() => {
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error(error);
+      setLoading(false);
+    });
   }, [cartItems])
 
 
@@ -170,6 +180,15 @@ export const Product = () => {
         </Grid>
 
       </Grid>
+      {loading &&(
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+
+      <HashLoader color="#9bc452" />
+      </Backdrop>
+      )}
     </>
   )
 }

@@ -24,7 +24,17 @@ const ProductModel = new Schema({
             required: true
         }
     },
-    likes: [{ type: Schema.Types.ObjectId, ref: 'users' }]
+    likes: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+    ratings: [
+        {
+            star: Number,
+            postedBy: { type: Schema.Types.ObjectId, ref: "users" }
+        }
+    ],
+    totalrating: {
+        type: Number,
+        default: 0
+    }
 })
 
 module.exports = mongoose.model('products', ProductModel)
