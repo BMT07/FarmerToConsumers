@@ -31,8 +31,6 @@ const theme = createTheme();
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-
-
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({})
@@ -54,11 +52,13 @@ export default function Login() {
     e.preventDefault();
     if (isVerified) {
       dispatch(LoginAction(form, history))
+      localStorage.setItem('hasSeenWalkthrough', 'true');
+
+
     } else {
       alert("Veuillez cocher la case 'Je ne suis pas un robot'");
     }
   }
-
 
   const handleCreateUserGoogle = async (Name, Email) => {
     try {
@@ -74,9 +74,6 @@ export default function Login() {
       console.error(err);
     }
   };
-
-
-
   const login = useGoogleLogin({
     onSuccess: async respose => {
 

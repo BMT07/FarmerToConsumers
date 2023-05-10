@@ -1,12 +1,13 @@
 import React from "react"
 import { price } from "../../assets/data/data"
 import { Heading } from "../../common/Heading"
-
+import { Link, useHistory } from 'react-router-dom';
 export const Price = () => {
+  const history = useHistory();
   return (
     <>
       <section className='price'>
-        <Heading title='Choose The Plans' desc='Meet our newbies! The latest templates uploaded to the marketplace.' />
+        <Heading title='Meet our Plans' desc='The latest offers have just been uploaded to the marketplace, and you can win gifts by checking them out !' />
 
         <div className='content'>
           {price.map((item) => (
@@ -15,10 +16,9 @@ export const Price = () => {
               <h1>
                 <span>$</span>
                 {item.price}
-                <label htmlFor=''>/user per month</label>
               </h1>
               <p>{item.desc}</p>
-              <button className='button'>GET STATRED</button>
+              <button className='button' onClick={()=>history.push("/shop")}>GET STATRED</button>
 
               <ul>
                 {item.list.map((lists,index) => (

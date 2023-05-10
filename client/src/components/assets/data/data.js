@@ -222,122 +222,116 @@ export const topProducts = [
 ]
 export const price = [
   {
-    id: 1,
-    name: "Free Trial",
-    price: "0",
-    desc: "Beautifully simple project planning, 14 days of free trial.",
+    id: 1, 
+    name: "5 orders",
+    price: "20%",
+    desc: "you're on your way to receiving gifts! Simply order any 5 items from our marketplace and claim a free gift.",
     list: [
       {
-        para: "Demo Content Install",
+        para: "20% Discount Code",
         icon: <FcCheckmark />,
       },
       {
-        para: "Theme Updates",
+        para: "Early access to new products",
         icon: <FcCheckmark />,
       },
       {
-        para: "Support And Updates",
+        para: "Welcome Gift",
         icon: <AiOutlineClose />,
       },
       {
-        para: "Access All Themes",
+        para: "Collection preorder option",
         icon: <AiOutlineClose />,
       },
       {
-        para: "All Themes For Life",
+        para: "Free shipping",
         icon: <AiOutlineClose />,
       },
       {
-        para: "30 Days Money Back",
+        para: "Free order ",
         icon: <AiOutlineClose />,
       },
     ],
   },
   {
     id: 2,
-    name: "Premium",
-    price: "26",
-    desc: "Declutter your mind and save time with Premium.",
+    name: "15 orders",
+    price: "Free",
+    desc: "By placing 15 orders, you become one of our premium clients, and many gifts are waiting for you!.",
     list: [
       {
-        para: "Demo Content Install",
+        para: "Free order ",
+        icon:<FcCheckmark />,
+      },
+      {
+        para: "Early access to new products",
         icon: <FcCheckmark />,
       },
       {
-        para: "Theme Updates",
+        para: "Welcome Gift",
         icon: <FcCheckmark />,
       },
       {
-        para: "Support And Updates",
+        para: "Collection preorder option",
         icon: <FcCheckmark />,
       },
       {
-        para: "Access All Themes",
-        icon: <FcCheckmark />,
+        para: "Free shipping",
+        icon:<FcCheckmark />,
       },
-      {
-        para: "All Themes For Life",
-        icon: <AiOutlineClose />,
-      },
-      {
-        para: "30 Days Money Back",
-        icon: <AiOutlineClose />,
-      },
+     
     ],
   },
   {
     id: 3,
-    name: "Unlimited Access ",
-    price: "49",
-    desc: "Declutter your mind and save time with Premium.",
+    name: "10 orders ",
+    price: "50%",
+    desc: "Keep placing orders to unlock premium status and gain access to even more exclusive rewards.",
     list: [
       {
-        para: "Demo Content Install",
+        para: "50% Discount Code",
         icon: <FcCheckmark />,
       },
       {
-        para: "Theme Updates",
+        para: "Early access to new products",
         icon: <FcCheckmark />,
       },
       {
-        para: "Support And Updates",
-        icon: <FcCheckmark />,
+        para: "Collection preorder option",
+        icon: <AiOutlineClose />,
       },
       {
-        para: "Access All Themes",
-        icon: <FcCheckmark />,
+        para: "Welcome Gift",
+        icon: <AiOutlineClose />,
       },
       {
-        para: "All Themes For Life",
-        icon: <FcCheckmark />,
+        para: "Free shipping",
+        icon: <AiOutlineClose />,
       },
-      {
-        para: "30 Days Money Back",
-        icon: <FcCheckmark />,
-      },
+
     ],
   },
 ]
 export const customer = [
   {
     id: 1,
-    desc: "Congue condimentum et non eu arcu sociis aenean vivamus quisque. Porta purus urna. Massa id blandit enim cursus ante, nec consectetuer imperdiet ipsum",
-    name: "ALGISTINO",
-    post: "Marketing Company Director",
+    desc: 'I used the FarmerToConsumer application and I honestly believe it is a game changer !',
+    name: 'Amin Hlel',
+    post: 'Farmer from Gafsa',
   },
   {
     id: 2,
-    desc: "Congue condimentum et non eu arcu sociis aenean vivamus quisque. Porta purus urna. Massa id blandit enim cursus ante, nec consectetuer imperdiet ipsum",
-    name: "ALGISTINO",
-    post: "Marketing Company Director",
+    desc: 'I discovered FarmerToConsumer at an Innovation fair and I recommend it !',
+    name: 'Mohamed Jelbena',
+    post: 'Marketing Company Director',
   },
   {
     id: 3,
-    desc: "Congue condimentum et non eu arcu sociis aenean vivamus quisque. Porta purus urna. Massa id blandit enim cursus ante, nec consectetuer imperdiet ipsum",
-    name: "ALGISTINO",
-    post: "Marketing Company Director",
+    desc: 'This application has great potential ! I except it to grow in the next few years',
+    name: 'Gervinho Ben Ali',
+    post: 'Distribution Company Director',
   },
-]
+];
 export const blog = [
   {
     id: 1,
