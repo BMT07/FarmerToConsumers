@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row;
+    }
+  }
+  
+  .left-container {
+    flex: 1;
+  }
+  
+  .right-container {
+    flex: 1;
+  }
+  
+  @media (min-width: 768px) {
+    .left-container {
+      order: 1;
+    }
+  
+    .right-container {
+      order: 2;
+    }
+  }
+  
+  .component-a {
+    background-color: #ff0000;
+    height: 50px;
+  }
+  
+  .component-b {
+    background-color: #00ff00;
+    height: 50px;
+  }
+  
+  @media (min-width: 768px) {
+    .component-a {
+      width: 50%;
+    }
+  
+    .component-b {
+      width: 50%;
+    }
+  }
+  
