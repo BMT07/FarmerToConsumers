@@ -32,7 +32,7 @@ const ProductModel = new Schema({
         }
     ],
     totalrating: {
-        type: String,
+        type: Number,
         default: 0
     }
 
