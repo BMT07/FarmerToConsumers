@@ -11,6 +11,7 @@ const {
   SendContactMail,
   AddNewsletter,
   SendNewsletter,
+  ProfileGoogle,
 } = require('../controllers/users.controllers');
 
 const { GetUserLivraison, PlaceOrder, Payment, Verify, updateOrder, GetOrder, cancelOrder, GetFarmerOrder, GetLivraisonByReference } = require('../controllers/livraison.controller')
@@ -31,12 +32,14 @@ router.post('/activation',
 router.post('/login', Login);
 router.get(
   '/profile', passport.authenticate('jwt', { session: false }),
-
   Profile
+);
+router.get(
+  '/profilegoogle/:email', 
+  ProfileGoogle
 );
 router.put(
   '/Editprofile/:email', passport.authenticate('jwt', { session: false }),
-
   EditProfile
 );
 

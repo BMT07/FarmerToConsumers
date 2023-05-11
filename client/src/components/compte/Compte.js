@@ -101,7 +101,7 @@ function Compte() {
   const getProfile = async () => {
     const data = await axios.get('http://localhost:8080/FarmerToConsumer/profile/', {
       headers: { Authorization: `${localStorage.getItem('jwt')}` }
-    })
+    }) 
       .catch((err) => {
         console.log(err)
       }

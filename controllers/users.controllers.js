@@ -470,6 +470,14 @@ const Profile = async (req, res) => {
     res.status(404).json(error.message);
   }
 };
+const ProfileGoogle=async (req,res)=>{
+  try {
+    const data = await usersModels.findOne(req.params.email);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+}
 async function SendMail(user, code) {
   // Create a SMTP transporter object
   let transporter = nodemailer.createTransport({
@@ -1683,5 +1691,5 @@ module.exports = {
   EditProfile,
   resetNewPassword,
   resetPassword,
-  checkSecretCode,SendContactMail,AddNewsletter,SendNewsletter
+  checkSecretCode,SendContactMail,AddNewsletter,SendNewsletter,ProfileGoogle
 };

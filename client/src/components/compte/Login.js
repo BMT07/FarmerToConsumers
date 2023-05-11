@@ -76,14 +76,12 @@ export default function Login() {
   };
   const login = useGoogleLogin({
     onSuccess: async respose => {
-
       try {
         const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
           headers: {
-            "Authorization": `Bearer ${respose.access_token}`
+            Authorization: `Bearer ${respose.access_token}`
           }
         })
-
         console.log(res.data)
       } catch (err) {
         console.log(err)
@@ -211,7 +209,7 @@ export default function Login() {
                             <GoogleLogin
                               onSuccess={credentialResponse => {
                                 console.log(credentialResponse.credential);
-                                localStorage.setItem('jwt', credentialResponse.credential);
+                                localStorage.setItem('jwt', "Bearer "+credentialResponse.credential);
                                 var decoded = jwt_decode(credentialResponse.credential);
                                 setTimeout(() => {
                                   dispatch(setUser(decoded));

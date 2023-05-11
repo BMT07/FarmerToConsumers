@@ -85,7 +85,7 @@ export const Pages = ({ cartItems }) => {
       <Router>
         {/* <NavBar user={user.role} /> */}
         <Header user={user.role} name={user.name} />
-        <ChatBotIndex/>
+        {/* <ChatBotIndex/> */}
         <Switch>
           <Route exact path="/farmer">
             <FarmerRouter user={user}>
@@ -121,9 +121,9 @@ export const Pages = ({ cartItems }) => {
           <Route exact path="/cart/:id">
             <Details />
           </Route>
-          <Route path="/chatbot" >
+          {/* <Route path="/chatbot" >
             <Chatbot />
-          </Route>
+          </Route> */}
           <Route path="/success">
             <PrivateRouter user={user}>
               <SuccessPayment />

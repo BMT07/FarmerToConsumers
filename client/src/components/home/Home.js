@@ -39,9 +39,9 @@ export const Home = () => {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
       >
-
       <HashLoader color="#9bc452" />
       </Backdrop>
+      
       )}
       
     </>
