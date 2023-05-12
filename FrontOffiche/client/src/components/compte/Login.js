@@ -206,20 +206,7 @@ export default function Login() {
                             <button onClick={login}>
                               <i className="fa-brands fa-google"></i>
                             </button>
-                            <GoogleLogin
-                              onSuccess={credentialResponse => {
-                                console.log(credentialResponse.credential);
-                                localStorage.setItem('jwt', "Bearer "+credentialResponse.credential);
-                                var decoded = jwt_decode(credentialResponse.credential);
-                                setTimeout(() => {
-                                  dispatch(setUser(decoded));
-                                }, [2000])
-                                setLoading(true)
-                                handleCreateUserGoogle(decoded.name, decoded.email)
-                              }}
-                              onError={() => {
-                                console.log('Login Failed');
-                              }} />
+                            
                           </Grid>
                           {loading && (<LinearProgress />)}
 
